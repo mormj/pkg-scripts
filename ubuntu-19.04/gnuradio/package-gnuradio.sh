@@ -4,7 +4,6 @@ NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
 DISTRIBUTION="disco"
-DEBREV="368-7"
 GITBRANCH=master
 
 if true; then
@@ -18,6 +17,8 @@ cd build
 fi
 
 cd gnuradio
+git checkout $GITBRANCH
+GITREV="$(git rev-list --count HEAD)"
 
 # Scrape the version number from CMakeLists.txt
 VERSION_MAJOR="$(cat CMakeLists.txt | grep "SET(VERSION_MAJOR" | tr -s ' ' | cut -d' ' -f2 | cut -d')' -f1)"
@@ -37,8 +38,8 @@ echo $GIT_COMMIT
 cd ..
 
 # Tar.gz it
-tar -cf gnuradio_$VERSION_STRING~$DEBREV~$DISTRIBUTION.orig.tar gnuradio
-gzip gnuradio_$VERSION_STRING~$DEBREV~$DISTRIBUTION.orig.tar
+tar -cf gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION.orig.tar gnuradio
+gzip gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION.orig.tar
 
 cd pkg-gnuradio
 git checkout $DISTRIBUTION
@@ -62,7 +63,7 @@ fi
 # Update the changelog
 # Increment the Debian Revision
 cp changelog changelog.prev
-echo -e "gnuradio ($VERSION_STRING~$DEBREV~$DISTRIBUTION) $DISTRIBUTION; urgency=medium\n\n  * $GITBRANCH at $GIT_COMMIT\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
+echo -e "gnuradio ($VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION) $DISTRIBUTION; urgency=medium\n\n  * $GITBRANCH at $GIT_COMMIT\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
 
 # Start the build
 cd ../../
