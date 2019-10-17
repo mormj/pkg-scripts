@@ -1,5 +1,12 @@
 # Install all the needed dependencies for building the packages
 
+sudo add-apt-repository ppa:mormj/gnuradio-disco
+sudo apt update
+sudo apt install libvolk2-dev
+sudo apt install libthrift-dev
+sudo apt install --no-install-recommends libuhd-dev
+
+
 # GNU Radio
 sudo apt install \
 cmake \

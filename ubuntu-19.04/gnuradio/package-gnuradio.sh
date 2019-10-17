@@ -35,9 +35,9 @@ echo "Creating build for GNU Radio "$VERSION_STRING
 GIT_COMMIT="$(git log --pretty=oneline | head -n 1)"
 echo $GIT_COMMIT
 
-cd ..
-
 # Tar.gz it
+rm -rf .git
+cd ..
 tar -cf gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION.orig.tar gnuradio
 gzip gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION.orig.tar
 
