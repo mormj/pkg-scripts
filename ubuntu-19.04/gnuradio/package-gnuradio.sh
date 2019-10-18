@@ -69,7 +69,7 @@ echo -e "gnuradio ($VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION) $DISTRIBUTI
 cd ../../
 cp -r pkg-gnuradio/debian gnuradio/
 cd gnuradio/debian
-debuild -us -uc
+debuild -S
 
 # dput the files to launchpad PPA
 
