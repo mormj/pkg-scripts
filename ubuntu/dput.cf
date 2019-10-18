@@ -1,0 +1,13 @@
+[maint-3.8]
+fqdn = ppa.launchpad.net
+method = ftp
+incoming = ~mormj/ubuntu/gnuradio-maint-3.8/
+login = anonymous
+allow_unsigned_uploads = 0
+
+[master]
+fqdn = ppa.launchpad.net
+method = ftp
+incoming = ~mormj/ubuntu/gnuradio-master/
+login = anonymous
+allow_unsigned_uploads = 0

@@ -7,15 +7,11 @@ DISTRIBUTION="bionic"
 GITBRANCH=maint-3.8
 GITBRANCH_CLEAN=${GITBRANCH/-/}
 
-if true; then
 # Clone gnuradio repo
 mkdir build
 cd build
 git clone https://github.com/gnuradio/gnuradio.git 
 git clone https://github.com/mormj/pkg-gnuradio.git
-else
-cd build
-fi
 
 cd gnuradio
 git checkout $GITBRANCH
