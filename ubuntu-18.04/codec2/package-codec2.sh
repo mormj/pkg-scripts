@@ -5,4 +5,4 @@ export DEBEMAIL="mormjb@gmail.com"
 export UBUMAIL="mormjb@gmail.com"
 #export GPG_KEY=XXXXX...
 
-backportpackage -d bionic -u ppa:mormj/gr http://deb.debian.org/debian/pool/main/t/thrift/thrift_0.11.0-6.dsc -k $GPG_KEY -r
+backportpackage -d bionic -u ppa:mormj/gr http://deb.debian.org/debian/pool/main/c/codec2/codec2_0.8.1-2.dsc -k $GPG_KEY
