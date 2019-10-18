@@ -4,7 +4,8 @@ NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
 DISTRIBUTION="bionic"
-GITBRANCH=master
+GITBRANCH=maint-3.8
+GITBRANCH_CLEAN=${GITBRANCH/-/}
 
 if true; then
 # Clone gnuradio repo
@@ -38,8 +39,8 @@ echo $GIT_COMMIT
 # Tar.gz it
 rm -rf .git
 cd ..
-tar -cf gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION.orig.tar gnuradio
-gzip gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION.orig.tar
+tar -cf gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION.orig.tar gnuradio
+gzip gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION.orig.tar
 
 cd pkg-gnuradio
 git checkout $DISTRIBUTION
@@ -63,7 +64,7 @@ fi
 # Update the changelog
 # Increment the Debian Revision
 cp changelog changelog.prev
-echo -e "gnuradio ($VERSION_STRING~$GITBRANCH~$GITREV~$DISTRIBUTION) $DISTRIBUTION; urgency=medium\n\n  * $GITBRANCH at $GIT_COMMIT\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
+echo -e "gnuradio ($VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION) $DISTRIBUTION; urgency=medium\n\n  * $GITBRANCH at $GIT_COMMIT\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
 
 # Start the build
 cd ../../
@@ -72,6 +73,10 @@ cd gnuradio/debian
 debuild -S
 
 # dput the files to launchpad PPA
+cd ../../
+#dput my-ppa gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION_source.changes 
 
 # check in the updated changelog
-
+# TODO - update git branch to e.g. bionic-master, or bionic-maint-3.8
+#git add .
+#git commit -m "build gnuradio from $"
