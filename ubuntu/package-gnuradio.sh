@@ -4,7 +4,7 @@ NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
 DISTRIBUTION="bionic"
-GITBRANCH=maint-3.8
+GITBRANCH=master
 GITBRANCH_CLEAN=${GITBRANCH/-/}
 
 # Clone gnuradio repo
