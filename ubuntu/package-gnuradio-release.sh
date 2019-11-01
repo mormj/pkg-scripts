@@ -4,17 +4,19 @@ NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
 DISTRIBUTION="bionic"
+PPA="gnuradio"
 
 VERSION_MAJOR=3
 VERSION_API=8
 VERSION_ABI=0
 VERSION_PATCH=0
-REVISION=1
+REVISION=2
 
 VERSION_STR="$VERSION_MAJOR.$VERSION_API.$VERSION_ABI.$VERSION_PATCH"
-CHANGELOG="Unofficial build of $VERSION_STR"
+CHANGELOG="PPA build of $VERSION_STR"
 echo $CHANGELOG
 # Clone gnuradio repo
+rm -rf build
 mkdir build
 cd build
 git clone https://github.com/mormj/pkg-gnuradio.git
@@ -24,11 +26,11 @@ FILENAME=gnuradio-$VERSION_STR.tar.gz
 URL="https://www.gnuradio.org/releases/gnuradio/"
 DOWNLOAD="$URL$FILENAME"
 wget $DOWNLOAD
-mv $FILENAME gnuradio_$VERSION_STR~unofficial.orig.tar.gz
-tar xf gnuradio_$VERSION_STR~unofficial.orig.tar.gz
+mv $FILENAME gnuradio_$VERSION_STR~$PPA.orig.tar.gz
+tar xf gnuradio_$VERSION_STR~$PPA.orig.tar.gz
 mv gnuradio-$VERSION_STR gnuradio
 cd pkg-gnuradio
-git checkout released
+git checkout released-$DISTRIBUTION
 
 # Update changelog 
 # gnuradio (3.9.0.0~368-6~bionic) bionic; urgency=medium
@@ -37,7 +39,7 @@ cd debian
 # Update the changelog
 # Increment the Debian Revision
 cp changelog changelog.prev
-echo -e "gnuradio ($VERSION_STR~unofficial-$REVISION) $DISTRIBUTION; urgency=medium\n\n  * $GITBRANCH at $GIT_COMMIT\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
+echo -e "gnuradio ($VERSION_STR~$PPA-$REVISION) $DISTRIBUTION; urgency=medium\n\n  * $PPA ppa Release of v$VERSION_STR\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
 
 # Start the build
 cd ../../
@@ -51,9 +53,11 @@ DEBFULLNAME="Josh Morman"
 DEBEMAIL="mormjb@gmail.com"
 UBUMAIL="mormjb@gmail.com"
 #dput my-ppa gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION_source.changes 
-dput -c ../dput.cf releases gnuradio_$VERSION_STR~unofficial-$REVISION_source.changes
+dput -c ../dput.cf releases gnuradio_$VERSION_STR~$PPA-"$REVISION"_source.changes
 
 # check in the updated changelog
 # TODO - update git branch to e.g. bionic-master, or bionic-maint-3.8
+#cd pkg-gnuradio
 #git add .
-#git commit -m "build gnuradio from $"
+#git commit -m " $PPA ppa Release of v$VERSION_STR"
+#git push origin released-$DISTRIBUTION
