@@ -3,9 +3,14 @@ export DEBEMAIL="mormjb@gmail.com"
 export UBUMAIL="mormjb@gmail.com"
 
 export PPA="ppa:mormj/gnuradio-maint-3.8"
+export PPA="ppa:mormj/gnuradio-master-mindep"
+
+DISTRIBUTION="disco"
 
 backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/c/codec2/codec2_0.8.1-2.dsc -k $GPG_KEY
 #backportpackage -d bionic -u $PPA http://deb.debian.org/debian/pool/main/d/debhelper/debhelper_12.1.1.dsc -k $GPG_KEY -r
 backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/t/thrift/thrift_0.11.0-6.dsc -k $GPG_KEY -r
 #backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.0.0-2.dsc -k $GPG_KEY -r
 
+
+backportpackage -y -d $DISTRIBUTION -u $PPA http://deb.debian.org/debian/pool/main/t/thrift/thrift_0.11.0-6.dsc -k $GPG_KEY -r

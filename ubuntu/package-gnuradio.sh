@@ -36,8 +36,8 @@ echo $GIT_COMMIT
 # Tar.gz it
 rm -rf .git
 cd ..
-tar -cf gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV.orig.tar gnuradio
-gzip gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV.orig.tar
+tar -cf gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION.orig.tar gnuradio
+gzip gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION.orig.tar
 
 cd pkg-gnuradio
 git checkout $DISTRIBUTION
@@ -61,7 +61,7 @@ fi
 # Update the changelog
 # Increment the Debian Revision
 cp changelog changelog.prev
-echo -e "gnuradio ($VERSION_STRING~$GITBRANCH_CLEAN~$GITREV) $DISTRIBUTION; urgency=medium\n\n  * $GITBRANCH at $GIT_COMMIT\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
+echo -e "gnuradio ($VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION) $DISTRIBUTION; urgency=medium\n\n  * $GITBRANCH at $GIT_COMMIT\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
 
 # Start the build
 cd ../../
@@ -75,9 +75,11 @@ DEBFULLNAME="Josh Morman"
 DEBEMAIL="mormjb@gmail.com"
 UBUMAIL="mormjb@gmail.com"
 #dput my-ppa gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION_source.changes 
-dput -c ../dput.cf master gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV"_source".changes
+dput -c ../dput.cf master gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION"_source".changes
 
 # check in the updated changelog
 # TODO - update git branch to e.g. bionic-master, or bionic-maint-3.8
-#git add .
-#git commit -m "build gnuradio from $"
+cd pkg-gnuradio
+git add .
+git commit -m " $GITBRANCH at $GIT_COMMIT"
+git push origin $DISTRIBUTION
