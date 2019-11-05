@@ -1,6 +1,6 @@
 release="1"
 
-if false; then
+if true; then
 rm -rf build
 mkdir build
 cd build
@@ -21,7 +21,7 @@ GITBRANCH=master
 GITBRANCH_CLEAN=${GITBRANCH/-/}
 
 # Clone gnuradio repo
-git clone https://github.com/gnuradio/gnuradio.git 
+git clone https://github.com/gnuradio/gnuradio.git --recurse-submodules
 #git clone https://github.com/mormj/pkg-gnuradio.git
 
 cd gnuradio
@@ -82,7 +82,7 @@ fi
 sed -i 's/\%{VERSION}/'$VERSION_STRING'/g' gnuradio.spec
 sed -i 's/\%{RELEASE}/'$release'/g' gnuradio.spec
 
-SOURCE="gnuradio_3.9.0.0git~master~13337~fedora.tar.xz"
+SOURCE="gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~fedora.tar.xz"
 sed -i 's/\%{SOURCE}/'$SOURCE'/g' gnuradio.spec
 
 rpmbuild \
@@ -93,6 +93,10 @@ rpmbuild \
 	  --define "_srcrpmdir %{_topdir}/rpmbuild/SRPMS" \
 	  --define "_specdir %{_topdir}" \
 	  --define "_sourcedir %{_topdir}/rpmbuild/SOURCES" \
-	  -ba gnuradio.spec
+	  -bs gnuradio.spec
+# 	  --noclean -ba gnuradio.spec
+
+#	  
+#	  -bs gnuradio.spec
 	  
 #	  	  --noclean \

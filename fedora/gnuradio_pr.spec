@@ -5,8 +5,6 @@
 %bcond_with neon
 %endif
 
-%{!?python3_sitearch: %global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
-
 %ifarch %{arm}
 %if %{with neon}
 %global my_optflags %(echo -n "%{optflags}" | sed 's/-mfpu=[^ \\t]\\+//g'; echo " -mfpu=neon")
@@ -23,53 +21,75 @@
 #%%global alphatag rc1
 
 Name:		gnuradio
-Version:	%{VERSION}
-Release:	%{RELEASE}%{?alphatag:.%{alphatag}}%{?dist}
+Version:	3.8.0.0
+Release:	1%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
-URL:		http://www.gnuradio.org
-#Source0:	ftp://ftp.gnu.org/gnu/gnuradio/gnuradio-%%{version}.tar.gz
-#Source0:	http://gnuradio.org/redmine/attachments/download/%%{attachment_id}/gnuradio-%%{version}.tar.gz
-#sSource0:	http://gnuradio.org/releases/gnuradio/gnuradio-%{version}%{?alphatag}.tar.xz
+URL:		https://www.gnuradio.org
+#Source0:	http://gnuradio.org/releases/gnuradio/gnuradio-%%{version}%%{?alphatag}.tar.xz
 #Source0:	http://gnuradio.org/releases/gnuradio/gnuradio-%%{version}.tar.gz
-Source:     %{SOURCE} 
+Source:     gnuradio_3.9.0.0git~master~13337~fedora.tar.xz    
+#Source0:	https://github.com/gnuradio/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 # git clone git://gnuradio.org/gnuradio
 # cd gnuradio
 # git archive --format=tar --prefix=%%{name}-%%{version}/ %%{git_commit} | \
 # gzip > ../%%{name}-%%{version}.tar.gz
 
 Requires(pre):	shadow-utils
-BuildRequires:	cmake, fftw-devel, cppunit-devel, xmlto
-BuildRequires:	graphviz, boost-devel, python3-devel, swig, doxygen
-BuildRequires:	libusbx-devel, SDL-devel, guile-devel
-BuildRequires:	portaudio-devel, libtool, gsm-devel
-# Gnuradio deprecated gr-comedi
-# http://gnuradio.org/redmine/issues/show/395
-# BuildRequires: comedilib-devel
-BuildRequires:	gsl-devel, numpy, PyQt5-devel, python3-pyqtgraph
-BuildRequires:	python3-lxml, pygtk2-devel, orc-devel
-BuildRequires:	desktop-file-utils, python3-mako, python3-six
-BuildRequires:	uhd-devel, python3, cppzmq-devel, zeromq-devel, thrift
-BuildRequires:	python3-sphinx, codec2-devel, findutils, python3-matplotlib
+BuildRequires:	cmake
+BuildRequires:	gcc-c++
+BuildRequires:	libtool
+BuildRequires:	alsa-lib-devel
+BuildRequires:	boost-devel
+BuildRequires:	codec2-devel
+BuildRequires:	cppzmq-devel
+BuildRequires:	desktop-file-utils
+BuildRequires:	doxygen
+BuildRequires:	fftw-devel
+BuildRequires:	findutils
+BuildRequires:	gmp-devel
+BuildRequires:	graphviz
+BuildRequires:	gsl-devel
+BuildRequires:	gsm-devel
+BuildRequires:	gtk3-devel
 BuildRequires:	jack-audio-connection-kit-devel
-BuildRequires:  log4cpp-devel, mpir-devel
-#BuildRequires:	python3-thrift
-%if ! 0%{?rhel:1}
-BuildRequires:	qwt-devel
+BuildRequires:	log4cpp-devel
+# mpir is not yet available on ppc64le
+%ifnarch ppc64le
+BuildRequires:	mpir-devel
 %endif
-Requires:	numpy, scipy, portaudio, python3-lxml
-Requires:	pygtk2, PyQt5, zeromq, log4cpp-devel
-#Requires:	python3-thrift
-%if ! 0%{?rhel:1}
+BuildRequires:	orc-devel
+BuildRequires:	portaudio-devel
+BuildRequires:	python3-devel
+BuildRequires:	python3-cairo
+BuildRequires:	python3-cheetah
+BuildRequires:	python3-click-plugins
+BuildRequires:	python3-gobject
+BuildRequires:	python3-numpy
+BuildRequires:	python3-pyyaml
+BuildRequires:	python3-lxml
+BuildRequires:	python3-mako
+BuildRequires:	python3-qt5-devel
+BuildRequires:	python3-scipy
+BuildRequires:	python3-six
+BuildRequires:	python3-sphinx
+BuildRequires:	python3-thrift
+BuildRequires:	qwt-qt5-devel
+#BuildRequires:	tex(latex)
+BuildRequires:	SDL-devel
+BuildRequires:	swig
+BuildRequires:	thrift
+BuildRequires:	uhd-devel
+BuildRequires:	xdg-utils
+BuildRequires:	xmlto
+BuildRequires:	zeromq-devel
+
+Requires:	python3-%{name} = %{version}-%{release}
+Requires:	python3-numpy
+Requires:	python3-cheetah
+Requires:	python3-thrift
 Requires:	python3-pyopengl
-%endif
-Obsoletes:	usrp < 3.3.0-1
-Obsoletes:	grc < 0.80-1
-# rhbz#1143914, patch approved by upstream to be used as distro specific
-# patch, upstream report: http://gnuradio.org/redmine/issues/728
-#Patch0:	gnuradio-3.7.13.3-size_t.patch
-#Patch0: 	
 
 %description
 GNU Radio is a collection of software that when combined with minimal
@@ -78,11 +98,17 @@ transmitted and received are defined by software. What this means is
 that it turns the digital modulation schemes used in today's high
 performance wireless devices into software problems.
 
+%package -n python3-%{name}
+Summary:	GNU Radio Python 3 module
+
+%description -n python3-%{name}
+GNU Radio Python 3 module
+
 %package devel
 Summary:	GNU Radio
-Requires:	%{name} = %{version}-%{release}
-Requires:	cmake, boost-devel
-Obsoletes:	usrp-devel <  3.3.0-1
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	cmake
+Requires:	boost-devel%{?_isa}
 
 %description devel
 GNU Radio Headers
@@ -90,7 +116,6 @@ GNU Radio Headers
 %package doc
 Summary:	GNU Radio
 Requires:	%{name} = %{version}-%{release}
-BuildArch:	noarch
 
 %description doc
 GNU Radio Documentation
@@ -104,13 +129,6 @@ GNU Radio examples
 
 %prep
 %setup -q -n %{name}-%{version}%{?alphatag}
-#%patch0 -p1 -b .size_t
-
-# Use cmake's FindGSL.cmake instead
-#rm cmake/Modules/FindGSL.cmake
-
-#force regeneration of cached moc output files
-find . -name "*_moc.cc" -exec rm {} \;
 
 %build
 mkdir build
@@ -118,50 +136,26 @@ cd build
 %cmake \
 -DSYSCONFDIR=%{_sysconfdir} \
 -DGR_PKG_DOC_DIR=%{_docdir}/%{name} \
--DENABLE_DOXYGEN=FALSE \
+-DGR_PYTHON_DIR=%{python3_sitearch} \
+-DPYTHON_EXECUTABLE=%{__python3} \
 %{?mfpu_neon} \
 ..
+#-DENABLE_DOXYGEN=FALSE \
 
-make %{?_smp_mflags} CFLAGS="%{optflags} -fno-strict-aliasing" CXXFLAGS="%{optflags} -fno-strict-aliasing"
+%make_build CFLAGS="%{optflags} -fno-strict-aliasing" CXXFLAGS="%{optflags} -fno-strict-aliasing"
 
 %install
-rm -rf %{buildroot}
-pushd build
-make install DESTDIR=%{buildroot}
-popd
-
-# remove atsc example (bytecompilation problem)
-# the examples shouldn't be probably bytecompiled,
-# but selective bytecompilation would take a lot of time,
-# thus letting it as is
-#rm -rf %{buildroot}%{_datadir}/%{name}/examples/atsc
-
-## install desktop file, icons, and MIME configuration to right locations
-#tree %{buildroot}%{_datadir}/%{name}/
-
-mkdir -p %{buildroot}%{_datadir}/applications
-#desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
-#  %{buildroot}%{_datadir}/%{name}/grc/freedesktop/gnuradio-grc.desktop
-#mkdir -p %{buildroot}%{_datadir}/mime/packages
-#mv %{buildroot}%{_datadir}/%{name}/grc/freedesktop/gnuradio-grc.xml %{buildroot}%{_datadir}/mime/packages
-#for x in 32 48 64 128 256
-#do
-#  mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${x}x${x}/apps
-#  mv %{buildroot}%{_datadir}/%{name}/grc/freedesktop/grc-icon-${x}.png %{buildroot}%{_datadir}/icons/hicolor/${x}x${x}/apps/gnuradio-grc.png
-#done
-#rm -f %{buildroot}%{_datadir}/%{name}/grc/freedesktop/*
-#rmdir %{buildroot}%{_datadir}/%{name}/grc/freedesktop
-
-# fix hashbangs
-pushd %{buildroot}%{_bindir}
-sed -i '1 s/^\(#!\/usr\/bin\/\)\(env\|python\).*$/\1python3/' gr-ctrlport-monitor gr-perf-monitorx
-popd
+%make_install -C build
+desktop-file-validate %{buildroot}%{_datadir}/applications/gnuradio-grc.desktop
+# Remove extraneous desktop/icon/mime files
+rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
+rm -r %{buildroot}%{_datadir}/icons/gnome
+      
 
 %ldconfig_scriptlets
 
 %files
 %license COPYING
-%{python3_sitearch}/*
 %{_bindir}/*
 %{_libdir}/lib*.so.*
 %{_libexecdir}/*
@@ -174,6 +168,11 @@ popd
 %exclude %{_docdir}/%{name}/html
 %exclude %{_docdir}/%{name}/xml
 %doc %{_docdir}/%{name}
+
+%files -n python3-%{name}
+%{python3_sitearch}/%{name}/
+%{python3_sitearch}/pmt/
+%{python3_sitearch}/volk_modtool/
 
 %files devel
 %{_includedir}/*
@@ -190,8 +189,35 @@ popd
 %{_datadir}/gnuradio/examples
 
 %changelog
-* Thu Jan 31 2019 Josh Morman <mormjb@gmail.com> - 3.9.0.0git-1
-- Rebuilt from GNU Radio master
+* Thu Oct 31 2019 Orion Poplawski <orion@nwra.com> - 3.8.0.0-1
+- Update to 3.8.0.0
+- Drop old obsoletes
+- Split out python modules into separate package
+- Use https in URLs
+- Re-enable Doxygen doc build
+
+* Mon Aug 26 2019 Jaroslav Škarvada <jskarvad@redhat.com> - 3.7.13.5-8
+- Rebuilt for new GSL
+
+* Tue Aug 20 2019 Susi Lehtola <jussilehtola@fedoraproject.org> - 3.7.13.5-7
+- Rebuilt for GSL 2.6.
+
+* Mon Aug  5 2019 Jaroslav Škarvada <jskarvad@redhat.com> - 3.7.13.5-6
+- Rebuilt for new uhd
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.13.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Tue Jul 09 2019 Filipe Rosset <rosset.filipe@gmail.com> - 3.7.13.5-4
+- Rebuilt for comedilib 0.11
+
+* Mon May  6 2019 Jaroslav Škarvada <jskarvad@redhat.com> - 3.7.13.5-2
+- Dropped PyQwt in f31+
+
+* Wed Apr 24 2019 Jaroslav Škarvada <jskarvad@redhat.com> - 3.7.13.5-1
+- New version
+- Updated source URL to point to github
+- Dropped python2-sphinx support (not in Fedora)
 
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.13.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
