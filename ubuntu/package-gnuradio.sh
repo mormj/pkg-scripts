@@ -4,10 +4,11 @@ NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
 DISTRIBUTION="bionic"
-GITBRANCH=maint-3.8
+GITBRANCH=master
 GITBRANCH_CLEAN=${GITBRANCH/-/}
 
 # Clone gnuradio repo
+rm -rf build
 mkdir build
 cd build
 git clone https://github.com/gnuradio/gnuradio.git 
@@ -66,13 +67,19 @@ echo -e "gnuradio ($VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION) $DIST
 cd ../../
 cp -r pkg-gnuradio/debian gnuradio/
 cd gnuradio/debian
-debuild -S
+debuild -S -d
 
 # dput the files to launchpad PPA
 cd ../../
+DEBFULLNAME="Josh Morman"
+DEBEMAIL="mormjb@gmail.com"
+UBUMAIL="mormjb@gmail.com"
 #dput my-ppa gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION_source.changes 
+dput -c ../dput.cf master gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION"_source".changes
 
 # check in the updated changelog
 # TODO - update git branch to e.g. bionic-master, or bionic-maint-3.8
-#git add .
-#git commit -m "build gnuradio from $"
+cd pkg-gnuradio
+git add .
+git commit -m " $GITBRANCH at $GIT_COMMIT"
+git push origin $DISTRIBUTION
