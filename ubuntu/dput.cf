@@ -19,3 +19,10 @@ incoming = ~mormj/ubuntu/gnuradio-releases-mindep/
 login = anonymous
 allow_unsigned_uploads = 0
 
+[releases37]
+fqdn = ppa.launchpad.net
+method = ftp
+incoming = ~mormj/ubuntu/gnuradio-releases-3.7/
+login = anonymous
+allow_unsigned_uploads = 0
+
