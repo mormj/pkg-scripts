@@ -10,7 +10,7 @@ VERSION_MAJOR=3
 VERSION_API=7
 VERSION_ABI=13
 VERSION_PATCH=5
-REVISION=3
+REVISION=4
 
 VERSION_STR="$VERSION_MAJOR.$VERSION_API.$VERSION_ABI.$VERSION_PATCH"
 CHANGELOG="PPA build of $VERSION_STR"
@@ -45,10 +45,10 @@ echo -e "gnuradio ($VERSION_STR~$PPA~$DISTRIBUTION-$REVISION) $DISTRIBUTION; urg
 cd ../../
 cp -r pkg-gnuradio/debian gnuradio/
 cd gnuradio/debian
-#debuild -S -d
-debuild 
+debuild -S -d
+#debuild 
 
-exit
+#exit
 
 # dput the files to launchpad PPA
 cd ../../
