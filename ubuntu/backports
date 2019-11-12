@@ -14,6 +14,8 @@ backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/t/th
 #backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.0.0-2.dsc -k $GPG_KEY -r
 
 backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_1.4-3.dsc -k $GPG_KEY -r
+backportpackage -y -d disco -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_1.4-3.dsc -k $GPG_KEY -r
+backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_1.4-3.dsc -k $GPG_KEY -r
 
 
 backportpackage -y -d $DISTRIBUTION -u $PPA http://deb.debian.org/debian/pool/main/t/thrift/thrift_0.11.0-6.dsc -k $GPG_KEY -r

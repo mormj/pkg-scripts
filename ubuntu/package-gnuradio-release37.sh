@@ -3,7 +3,7 @@
 NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
-DISTRIBUTION="bionic"
+DISTRIBUTION="disco"
 PPA="gnuradio"
 
 VERSION_MAJOR=3
@@ -63,4 +63,4 @@ dput -c ../dput.cf releases37 gnuradio_$VERSION_STR~$PPA~$DISTRIBUTION-"$REVISIO
 cd pkg-gnuradio
 git add .
 git commit -m " $PPA ppa Release of v$VERSION_STR"
-#git push origin released37-$DISTRIBUTION
+git push origin released37-$DISTRIBUTION
