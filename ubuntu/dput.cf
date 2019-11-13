@@ -8,14 +8,14 @@ allow_unsigned_uploads = 0
 [master]
 fqdn = ppa.launchpad.net
 method = ftp
-incoming = ~mormj/ubuntu/gnuradio-master-mindep/
+incoming = ~mormj/ubuntu/gnuradio-master-new/
 login = anonymous
 allow_unsigned_uploads = 0
 
 [releases]
 fqdn = ppa.launchpad.net
 method = ftp
-incoming = ~mormj/ubuntu/gnuradio-releases-mindep/
+incoming = ~mormj/ubuntu/gnuradio-releases-disco/
 login = anonymous
 allow_unsigned_uploads = 0
 
