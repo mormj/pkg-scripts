@@ -93,7 +93,8 @@ rpmbuild \
 	  --define "_srcrpmdir %{_topdir}/rpmbuild/SRPMS" \
 	  --define "_specdir %{_topdir}" \
 	  --define "_sourcedir %{_topdir}/rpmbuild/SOURCES" \
-          --noclean -ba gnuradio.spec
+	  -bs gnuradio.spec
+	  #--noclean -ba gnuradio.spec
 #	  -bs gnuradio.spec
 # 	  --noclean -ba gnuradio.spec
 #

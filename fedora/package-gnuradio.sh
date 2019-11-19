@@ -1,8 +1,10 @@
-version="2.0.0"
 release="1"
-name="volk"
-full_name="$name-$version"
-download_url="https://github.com/gnuradio/$name/archive/v$version.tar.gz"
+
+rm -rf build
+mkdir build
+cd build
+
+cp ~/git/pkg-gnuradio/fedora/gnuradio.spec ./
 
 rm -rf rpmbuild
 mkdir -p rpmbuild
@@ -12,12 +14,56 @@ mkdir -p rpmbuild/RPMS
 mkdir -p rpmbuild/SOURCES
 mkdir -p rpmbuild/SRPMS
 
-curl -L -o rpmbuild/SOURCES/$full_name.tar.gz $download_url; 
+DATESTR=$(date +"%a, %d %b %Y %T %z")
+DISTRIBUTION="fedora"
+GITBRANCH=master
+GITBRANCH_CLEAN=${GITBRANCH/-/}
 
-# Edit the spec file directly
-cp volk-template.spec volk.spec
-sed -i 's/\%{VERSION}/'$version'/g' volk.spec
-sed -i 's/\%{RELEASE}/'$release'/g' volk.spec
+# Clone gnuradio repo
+git clone https://github.com/gnuradio/gnuradio.git --recurse-submodules
+git clone https://github.com/mormj/pkg-gnuradio.git
+
+cd gnuradio
+git checkout $GITBRANCH
+GITREV="$(git rev-list --count HEAD)"
+
+# Scrape the version number from CMakeLists.txt
+VERSION_MAJOR="$(cat CMakeLists.txt | grep "SET(VERSION_MAJOR" | tr -s ' ' | cut -d' ' -f2 | cut -d')' -f1)"
+VERSION_API="$(cat CMakeLists.txt | grep "SET(VERSION_API" | tr -s ' ' | cut -d' ' -f2 | cut -d')' -f1)"
+VERSION_ABI="$(cat CMakeLists.txt | grep "SET(VERSION_ABI" | tr -s ' ' | cut -d' ' -f2 | cut -d')' -f1)"
+VERSION_PATCH="$(cat CMakeLists.txt | grep "SET(VERSION_PATCH" | tr -s ' ' | cut -d' ' -f2 | cut -d')' -f1)"
+
+# Remove '-' from the patch
+VERSION_PATCH=${VERSION_PATCH/-/}
+
+VERSION_STRING=$VERSION_MAJOR"."$VERSION_API"."$VERSION_ABI"."$VERSION_PATCH
+echo "Creating build for GNU Radio "$VERSION_STRING
+
+GIT_COMMIT="$(git log --pretty=oneline | head -n 1)"
+echo $GIT_COMMIT
+
+# Tar.gz it
+
+cd ..
+cp -r gnuradio "gnuradio-$VERSION_STRING"
+cd "gnuradio-$VERSION_STRING"
+rm -rf .git
+cd ..
+tar cfJ rpmbuild/SOURCES/gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION.tar.xz gnuradio-$VERSION_STRING
+
+cd pkg-gnuradio
+git checkout $DISTRIBUTION-master
+cd fedora
+
+sed -i 's/\%{VERSION}/'$VERSION_STRING'/g' gnuradio.spec
+sed -i 's/\%{RELEASE}/'$release'/g' gnuradio.spec
+rpmdev-bumpspec --comment="$GIT_COMMIT" --userstring="Josh Morman <mormjb@gmail.com>" gnuradio.spec
+
+SOURCE="gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~fedora.tar.xz"
+sed -i 's/\%{SOURCE}/'$SOURCE'/g' gnuradio.spec
+
+cd ../../
+cp pkg-gnuradio/fedora/gnuradio.spec ./
 
 rpmbuild \
 	  --define "_topdir %(pwd)" \
@@ -27,7 +73,15 @@ rpmbuild \
 	  --define "_srcrpmdir %{_topdir}/rpmbuild/SRPMS" \
 	  --define "_specdir %{_topdir}" \
 	  --define "_sourcedir %{_topdir}/rpmbuild/SOURCES" \
-	  --noclean \
-	  -bs volk.spec
+	  -bs gnuradio.spec
+	  #--noclean -ba gnuradio.spec
+#	  -bs gnuradio.spec
+# 	  --noclean -ba gnuradio.spec
+#
+#
 
-
+#	  
+#	  -bs gnuradio.spec
+	  
+#	  	  --noclean \
+#copr-cli build gnuradio-master build/rpmbuild/SRPMS/gnuradio-3.9.0.0git-1.fc31.src.rpm 
