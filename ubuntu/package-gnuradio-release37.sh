@@ -3,7 +3,7 @@
 NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
-DISTRIBUTION="disco"
+DISTRIBUTION="eoan"
 PPA="gnuradio"
 
 VERSION_MAJOR=3
