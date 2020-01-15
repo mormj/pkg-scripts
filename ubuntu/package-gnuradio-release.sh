@@ -3,14 +3,14 @@
 NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
-DISTRIBUTION="disco"
+DISTRIBUTION="bionic"
 PPA="gnuradio"
 
 VERSION_MAJOR=3
 VERSION_API=8
 VERSION_ABI=0
 VERSION_PATCH=0
-REVISION=8
+REVISION=9
 
 VERSION_STR="$VERSION_MAJOR.$VERSION_API.$VERSION_ABI.$VERSION_PATCH"
 CHANGELOG="PPA build of $VERSION_STR"
@@ -46,6 +46,8 @@ cd ../../
 cp -r pkg-gnuradio/debian gnuradio/
 cd gnuradio/debian
 debuild -S -d
+#debuild
+exit
 
 # dput the files to launchpad PPA
 cd ../../
