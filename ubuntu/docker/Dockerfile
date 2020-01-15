@@ -70,7 +70,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -qy \
     swig \
     thrift-compiler \
     xmlto \
-    git
+    git \
+    ubuntu-dev-tools \
+    bash-completion \
+    python3-gi-cairo \
+    python3-yaml \
+    libgtk-3-dev \
+    vim
 
 
 
