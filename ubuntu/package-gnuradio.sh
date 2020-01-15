@@ -3,10 +3,13 @@
 NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
-DISTRIBUTION="disco"
+DISTRIBUTION="bionic"
+# DISTRIBUTION="disco"
+# DISTRIBUTION="eoan"
 GITBRANCH=master
 GITBRANCH_CLEAN=${GITBRANCH/-/}
-
+# REV="2"
+# DISTRIBUTION="$DISTRIBUTION-$REV"
 # Clone gnuradio repo
 rm -rf build
 mkdir build
@@ -67,7 +70,9 @@ echo -e "gnuradio ($VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION) $DIST
 cd ../../
 cp -r pkg-gnuradio/debian gnuradio/
 cd gnuradio/debian
-debuild -S -d
+debuild 
+
+exit
 
 # dput the files to launchpad PPA
 cd ../../
