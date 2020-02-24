@@ -3,7 +3,7 @@ export DEBEMAIL="mormjb@gmail.com"
 export UBUMAIL="mormjb@gmail.com"
 
 export PPA="ppa:mormj/gnuradio-maint-3.8"
-export PPA="ppa:mormj/gnuradio-master-mindep"
+export PPA="ppa:mormj/gnuradio-master"
 export PPA="ppa:mormj/gnuradio-releases-3.7"
 export PPA="ppa:mormj/gnuradio-releases-allarch"
 
@@ -25,3 +25,7 @@ backportpackage -y -d $DISTRIBUTION -u $PPA http://deb.debian.org/debian/pool/ma
 backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.1.0-2.dsc -k $GPG_KEY -r
 backportpackage -y -d disco -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.1.0-2.dsc -k $GPG_KEY -r
 backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.1.0-2.dsc -k $GPG_KEY -r
+
+backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.2.0-3.dsc -k $GPG_KEY -r
+backportpackage -y -d disco -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.2.0-3.dsc -k $GPG_KEY -r
+backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.2.0-3.dsc -k $GPG_KEY -r
