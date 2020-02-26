@@ -3,16 +3,18 @@
 NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
-DISTRIBUTION="bionic"
+DISTRIBUTION="eoan"
 PPA="gnuradio"
 
 VERSION_MAJOR=3
 VERSION_API=8
-VERSION_ABI=0
+VERSION_ABI=1
 VERSION_PATCH=0
-REVISION=9
+RC="-rc1"
+REVISION=1
 
-VERSION_STR="$VERSION_MAJOR.$VERSION_API.$VERSION_ABI.$VERSION_PATCH"
+VERSION_STR="$VERSION_MAJOR.$VERSION_API.$VERSION_ABI.$VERSION_PATCH$RC"
+VERSION_STR_NO_RC="$VERSION_MAJOR.$VERSION_API.$VERSION_ABI.$VERSION_PATCH"
 CHANGELOG="PPA build of $VERSION_STR"
 echo $CHANGELOG
 # Clone gnuradio repo
@@ -23,12 +25,14 @@ git clone https://github.com/mormj/pkg-gnuradio.git
 
 # Grab the tar.gz
 FILENAME=gnuradio-$VERSION_STR.tar.gz
-URL="https://www.gnuradio.org/releases/gnuradio/"
-DOWNLOAD="$URL$FILENAME"
+# URL="https://www.gnuradio.org/releases/gnuradio/"
+URL="https://github.com/gnuradio/gnuradio/releases/download/v$VERSION_STR/"
+# DOWNLOAD="$URL$FILENAME"
+DOWNLOAD=$URL$FILENAME
 wget $DOWNLOAD
 mv $FILENAME gnuradio_$VERSION_STR~$PPA~$DISTRIBUTION.orig.tar.gz
 tar xf gnuradio_$VERSION_STR~$PPA~$DISTRIBUTION.orig.tar.gz
-mv gnuradio-$VERSION_STR gnuradio
+mv gnuradio-$VERSION_STR_NO_RC gnuradio
 cd pkg-gnuradio
 git checkout released-$DISTRIBUTION
 
@@ -47,7 +51,7 @@ cp -r pkg-gnuradio/debian gnuradio/
 cd gnuradio/debian
 debuild -S -d
 #debuild
-exit
+# exit
 
 # dput the files to launchpad PPA
 cd ../../
