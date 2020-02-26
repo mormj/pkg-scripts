@@ -78,7 +78,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -qy \
     libgtk-3-dev \
     vim
 
+RUN mkdir /packaging
+WORKDIR /packaging
 
+COPY ./docker_entrypoint.sh /
 
-ENTRYPOINT bash
-
+ENTRYPOINT ["/docker_entrypoint.sh"]

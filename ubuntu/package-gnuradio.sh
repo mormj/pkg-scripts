@@ -70,8 +70,9 @@ echo -e "gnuradio ($VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION) $DIST
 cd ../../
 cp -r pkg-gnuradio/debian gnuradio/
 cd gnuradio/debian
-debuild 
+# debuild -S -d
 
+debuild 
 exit
 
 # dput the files to launchpad PPA
@@ -84,7 +85,7 @@ dput -c ../dput.cf master gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DIS
 
 # check in the updated changelog
 # TODO - update git branch to e.g. bionic-master, or bionic-maint-3.8
-cd pkg-gnuradio
-git add .
-git commit -m " $GITBRANCH at $GIT_COMMIT"
-git push origin $DISTRIBUTION
+# cd pkg-gnuradio
+# git add .
+# git commit -m " $GITBRANCH at $GIT_COMMIT"
+# git push origin $DISTRIBUTION

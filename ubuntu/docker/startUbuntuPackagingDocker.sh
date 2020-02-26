@@ -1,0 +1,1 @@
+docker run --cpus 2 -it -v /share/keys:/keys -v $(readlink -f ../../):/pkg-scripts/ gr-ubuntu-packaging "bash"
