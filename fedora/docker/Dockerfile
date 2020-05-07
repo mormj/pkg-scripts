@@ -66,6 +66,12 @@ RUN echo "zchunk=false" >> /etc/dnf/dnf.conf && \
 	gtk3 \
         python3-cairo \
         pango \
+        gpg \
+        pinentry \
+        rpm-build \
+        rpmdevtools \
+        copr-cli \
+        orc-devel \
         && \
     dnf clean all && \
     echo "max_size = 20G" > /etc/ccache.conf

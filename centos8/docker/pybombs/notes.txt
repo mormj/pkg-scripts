@@ -1,0 +1,31 @@
+    1  pybombs
+    2  git clone https://github.com/gnuradio/pybombs.git
+    3  dnf install -y git
+    4  git clone https://github.com/gnuradio/pybombs.git
+    5  grep -iIr subparsers
+    6  cd pybombs
+    7  grep -iIr subparsers
+    8  vim base.py
+    9  dnf install vim
+   10  vim base.py
+   11  grep -iIr subparsers
+   12  vim pybombs/commands/base.py
+   13  pybombs --help
+   14  pybombs
+   15  pybombs auto-config
+   16  pybombs recipes add-defaults
+   17  pybombs prefix init /gr -R gnuradio
+   18  pybombs prefix init /gr 
+   19  pybombs install gnuradio
+
+Package has no install method: python-pyqtgraph
+-- pip3 install pyqtgraph
+
+
+   15  pybombs auto-config
+   16  pybombs recipes add-defaults
+   17  pybombs prefix init /gr -R gnuradio
+   18  pybombs prefix init /gr 
+   19  pybombs install gnuradio
+   27  pip3 install pyqtgraph
+   35  pybombs install gnuradio

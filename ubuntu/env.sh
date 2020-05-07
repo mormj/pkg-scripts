@@ -1,0 +1,10 @@
+export DEBFULLNAME="Josh Morman"
+export DEBEMAIL="mormjb@gmail.com"
+export NAME="Josh Morman"
+export EMAIL="<mormjb@gmail.com>"
+export UBUMAIL="mormjb@gmail.com"
+
+export PPA="ppa:mormj/gnuradio-maint-3.8"
+export PPA="ppa:mormj/gnuradio-master"
+export PPA="ppa:mormj/gnuradio-releases-3.7"
+export PPA="ppa:mormj/gnuradio-releases-allarch"
