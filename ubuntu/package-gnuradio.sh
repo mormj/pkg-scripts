@@ -3,10 +3,10 @@
 NAME="Josh Morman"
 EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
-# DISTRIBUTION="bionic"
+DISTRIBUTION="bionic"
 # DISTRIBUTION="disco"
 # DISTRIBUTION="eoan"
-DISTRIBUTION="focal"
+# DISTRIBUTION="focal"
 GITBRANCH=master
 GITBRANCH_CLEAN=${GITBRANCH/-/}
 # REV="2"

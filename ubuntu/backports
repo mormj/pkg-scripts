@@ -29,3 +29,12 @@ backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/v/volk
 backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.2.1-2.dsc -k $GPG_KEY -r
 backportpackage -y -d disco -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.2.1-2.dsc -k $GPG_KEY -r
 backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.2.1-2.dsc -k $GPG_KEY -r
+
+backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.3.0-2.dsc -k $GPG_KEY -r
+backportpackage -y -d disco -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.3.0-2.dsc -k $GPG_KEY -r
+backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.3.0-2.dsc -k $GPG_KEY -r
+
+
+backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/p/pybind11/pybind11_2.5.0-4.dsc -k $GPG_KEY -r
+backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/p/pybind11/pybind11_2.5.0-4.dsc -k $GPG_KEY -r
+backportpackage -y -d focal -u $PPA http://deb.debian.org/debian/pool/main/p/pybind11/pybind11_2.5.0-4.dsc -k $GPG_KEY -r

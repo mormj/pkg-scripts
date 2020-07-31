@@ -7,10 +7,10 @@ EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
 echo $DATESTR
 # DISTRIBUTION=${1:-eoan}
-# DISTRIBUTION="bionic"
+DISTRIBUTION="bionic"
 # DISTRIBUTION="disco"
 # DISTRIBUTION="eoan"
-DISTRIBUTION="focal"
+# DISTRIBUTION="focal"
 PPA="gnuradio"
 
 VERSION_MAJOR=3
@@ -38,8 +38,8 @@ URL="https://github.com/gnuradio/gnuradio/releases/download/v$VERSION_STR/"
 # DOWNLOAD="$URL$FILENAME"
 DOWNLOAD=$URL$FILENAME
 wget $DOWNLOAD
-mv $FILENAME gnuradio_$VERSION_STR~$PPA~$DISTRIBUTION.orig.tar.gz
-tar xf gnuradio_$VERSION_STR~$PPA~$DISTRIBUTION.orig.tar.gz
+mv $FILENAME gnuradio_$VERSION_STR"-0"~$PPA~$DISTRIBUTION.orig.tar.gz
+tar xf gnuradio_$VERSION_STR"-0"~$PPA~$DISTRIBUTION.orig.tar.gz
 mv gnuradio-$VERSION_STR_NO_RC gnuradio
 cd pkg-gnuradio
 git checkout released-$DISTRIBUTION
@@ -51,7 +51,7 @@ cd debian
 # Update the changelog
 # Increment the Debian Revision
 cp changelog changelog.prev
-echo -e "gnuradio ($VERSION_STR~$PPA~$DISTRIBUTION-$REVISION) $DISTRIBUTION; urgency=medium\n\n  * $PPA ppa Release of v$VERSION_STR for $DISTRIBUTION\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
+echo -e "gnuradio ($VERSION_STR-0~$PPA~$DISTRIBUTION-$REVISION) $DISTRIBUTION; urgency=medium\n\n  * $PPA ppa Release of v$VERSION_STR for $DISTRIBUTION\n\n -- $NAME $EMAIL  $DATESTR\n\n$(cat changelog)" > changelog
 
 # Start the build
 cd ../../
@@ -67,7 +67,7 @@ DEBFULLNAME="Josh Morman"
 DEBEMAIL="mormjb@gmail.com"
 UBUMAIL="mormjb@gmail.com"
 #dput my-ppa gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION_source.changes 
-dput -c ../dput.cf releases gnuradio_$VERSION_STR~$PPA~$DISTRIBUTION-"$REVISION"_source.changes
+dput -c ../dput.cf releases gnuradio_$VERSION_STR"-0"~$PPA~$DISTRIBUTION-"$REVISION"_source.changes
 
 # check in the updated changelog
 # TODO - update git branch to e.g. bionic-master, or bionic-maint-3.8
