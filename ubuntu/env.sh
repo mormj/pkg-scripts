@@ -5,6 +5,6 @@ export EMAIL="<mormjb@gmail.com>"
 export UBUMAIL="mormjb@gmail.com"
 
 # export PPA="ppa:mormj/gnuradio-maint-3.8"
-export PPA="ppa:mormj/gnuradio-master3"
+export PPA="ppa:mormj/gr-oot"
 # export PPA="ppa:mormj/gnuradio-releases-3.7"
 # export PPA="ppa:mormj/gnuradio-releases-allarch"

@@ -23,8 +23,8 @@
 #%%global alphatag rc1
 
 Name:		gnuradio
-Version:	%{VERSION}
-Release:	%{RELEASE}%{?alphatag:.%{alphatag}}%{?dist}
+Version:	...
+Release:	1%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -33,7 +33,7 @@ URL:		http://www.gnuradio.org
 #Source0:	http://gnuradio.org/redmine/attachments/download/%%{attachment_id}/gnuradio-%%{version}.tar.gz
 #sSource0:	http://gnuradio.org/releases/gnuradio/gnuradio-%{version}%{?alphatag}.tar.xz
 #Source0:	http://gnuradio.org/releases/gnuradio/gnuradio-%%{version}.tar.gz
-Source:     %{SOURCE} 
+Source:     gnuradio_...~master~~fedora.tar.xz 
 # git clone git://gnuradio.org/gnuradio
 # cd gnuradio
 # git archive --format=tar --prefix=%%{name}-%%{version}/ %%{git_commit} | \

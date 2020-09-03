@@ -29,7 +29,7 @@ echo $CHANGELOG
 rm -rf build
 mkdir build
 cd build
-git clone https://github.com/mormj/pkg-gnuradio.git
+git clone https://github.com/mormj/pkg-gr-osmosdr.git
 
 # Grab the tar.gz
 FILENAME=gnuradio-$VERSION_STR.tar.gz

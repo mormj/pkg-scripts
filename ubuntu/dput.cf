@@ -19,6 +19,13 @@ incoming = ~mormj/ubuntu/gnuradio-releases/
 login = anonymous
 allow_unsigned_uploads = 0
 
+[oot]
+fqdn = ppa.launchpad.net
+method = ftp
+incoming = ~mormj/ubuntu/gnuradio-oot3/
+login = anonymous
+allow_unsigned_uploads = 0
+
 [releases37]
 fqdn = ppa.launchpad.net
 method = ftp

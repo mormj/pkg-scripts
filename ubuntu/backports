@@ -38,3 +38,18 @@ backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/v/volk
 backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/p/pybind11/pybind11_2.5.0-4.dsc -k $GPG_KEY -r
 backportpackage -y -d eoan -u $PPA http://deb.debian.org/debian/pool/main/p/pybind11/pybind11_2.5.0-4.dsc -k $GPG_KEY -r
 backportpackage -y -d focal -u $PPA http://deb.debian.org/debian/pool/main/p/pybind11/pybind11_2.5.0-4.dsc -k $GPG_KEY -r
+
+
+backportpackage -y -d focal -u $PPA http://deb.debian.org/debian/pool/main/g/gr-osmosdr/gr-osmosdr_0.2.2-1.dsc -k $GPG_KEY -r
+
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/u/uhd/uhd_3.15.0.0-3.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-fcdproplus/gr-fcdproplus_3.8~20190817-3.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-dab/gr-dab_0.4-2.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-air-modes/gr-air-modes_0.0.20190917-2.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-fosphor/gr-fosphor_3.8~2.2d4fe78-1.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-iio/gr-iio_0.3-9.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-gsm/gr-gsm_0.42.2.20200214-1.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-limesdr/gr-limesdr_3.0.1-2.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-radar/gr-radar_0.0.0.20180308-4.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-rds/gr-rds_3.8.0.0.f1c584a-3.dsc
+backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-soapy/gr-soapy_2.0-1.dsc
