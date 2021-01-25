@@ -7,19 +7,18 @@ EMAIL="<mormjb@gmail.com>"
 DATESTR=$(date +"%a, %d %b %Y %T %z")
 echo $DATESTR
 # DISTRIBUTION=${1:-eoan}
-# DISTRIBUTION="bionic"
-# DISTRIBUTION="disco"
-# DISTRIBUTION="eoan"
-DISTRIBUTION="focal"
+DISTRIBUTION="bionic"
+# DISTRIBUTION="focal"
+# DISTRIBUTION="groovy"
 PPA="gnuradio"
 
 VERSION_MAJOR=3
-VERSION_API=8
-VERSION_ABI=2
+VERSION_API=9
+VERSION_ABI=0
 VERSION_PATCH=0
 #RC="-rc1"
 RC=""
-REVISION=${2:-2}
+REVISION=${2:-3}
 
 VERSION_STR="$VERSION_MAJOR.$VERSION_API.$VERSION_ABI.$VERSION_PATCH$RC"
 VERSION_STR_NO_RC="$VERSION_MAJOR.$VERSION_API.$VERSION_ABI.$VERSION_PATCH"
@@ -42,7 +41,7 @@ mv $FILENAME gnuradio_$VERSION_STR"-0"~$PPA~$DISTRIBUTION.orig.tar.gz
 tar xf gnuradio_$VERSION_STR"-0"~$PPA~$DISTRIBUTION.orig.tar.gz
 mv gnuradio-$VERSION_STR_NO_RC gnuradio
 cd pkg-gnuradio
-git checkout released-$DISTRIBUTION
+git checkout released39-$DISTRIBUTION
 
 # Update changelog 
 # gnuradio (3.9.0.0~368-6~bionic) bionic; urgency=medium
@@ -69,9 +68,10 @@ UBUMAIL="mormjb@gmail.com"
 #dput my-ppa gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION_source.changes 
 dput -c ../dput.cf releases gnuradio_$VERSION_STR"-0"~$PPA~$DISTRIBUTION-"$REVISION"_source.changes
 
+exit
 # check in the updated changelog
 # TODO - update git branch to e.g. bionic-master, or bionic-maint-3.8
 cd pkg-gnuradio
 git add .
 git commit -m " $PPA ppa Release of v$VERSION_STR"
-git push origin released-$DISTRIBUTION
+git push origin released39-$DISTRIBUTION

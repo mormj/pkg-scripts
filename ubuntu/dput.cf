@@ -22,7 +22,7 @@ allow_unsigned_uploads = 0
 [oot]
 fqdn = ppa.launchpad.net
 method = ftp
-incoming = ~mormj/ubuntu/gnuradio-oot3/
+incoming = ~mormj/ubuntu/gnuradio-oot/
 login = anonymous
 allow_unsigned_uploads = 0
 

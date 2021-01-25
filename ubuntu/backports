@@ -53,3 +53,11 @@ backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/
 backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-radar/gr-radar_0.0.0.20180308-4.dsc
 backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-rds/gr-rds_3.8.0.0.f1c584a-3.dsc
 backportpackage -y -d focal -u $PPA -k $GPG_KEY -r http://deb.debian.org/debian/pool/main/g/gr-soapy/gr-soapy_2.0-1.dsc
+
+
+backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.4.1-2.dsc -k $GPG_KEY -r
+backportpackage -y -d focal -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.4.1-2.dsc -k $GPG_KEY -r
+backportpackage -y -d groovy -u $PPA http://deb.debian.org/debian/pool/main/v/volk/volk_2.4.1-2.dsc -k $GPG_KEY -r
+
+backportpackage -y -d bionic -u $PPA http://deb.debian.org/debian/pool/main/c/cpu-features/cpu-features_0.6.0-3.dsc -k $GPG_KEY -r
+backportpackage -y -d focal -u $PPA http://deb.debian.org/debian/pool/main/c/cpu-features/cpu-features_0.6.0-3.dsc -k $GPG_KEY -r
